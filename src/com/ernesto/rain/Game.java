@@ -5,8 +5,12 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferInt;
 
 import javax.swing.JFrame;
+
+import com.ernesto.rain.graphics.Screen;
 
 public class Game extends Canvas implements Runnable{
 	
@@ -21,14 +25,22 @@ public class Game extends Canvas implements Runnable{
 	private JFrame frame;
 	private boolean running = false;
 	
+	private Screen screen;
+	
+	// Create the image that we are going to use
+	private BufferedImage image = new BufferedImage(width,height,BufferedImage.TYPE_INT_RGB);
+	// Contact the image, get the array of pixels that make the image (raster) then get the data buffer that contains the data
+	private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();  // Create the array of pixels we are going to modify
+	
 	public Game(){
 		Dimension size = new Dimension(width*scale,height*scale);
 		setPreferredSize(size); 				//This method is in Canvas class
+		screen = new Screen(width,height);
 		frame = new JFrame();
 	}
 	
 	public synchronized void start(){
-		running = true;
+		running =  true;
 		thread = new Thread(this, "Display");
 		thread.start();
 	}

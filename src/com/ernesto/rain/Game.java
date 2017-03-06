@@ -72,7 +72,9 @@ public class Game extends Canvas implements Runnable{
 			return;
 		}
 		
+		screen.clear();	  // Clear all pixels we had before
 		screen.render();  //render method in the Screen class
+		
 		for(int i =0;i<pixels.length;i++){
 			pixels[i] = screen.pixels[i]; // Give the value of the Screen method to every pixel in the BS
 		}

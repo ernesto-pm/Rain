@@ -72,9 +72,16 @@ public class Game extends Canvas implements Runnable{
 			return;
 		}
 		
+		screen.render();  //render method in the Screen class
+		for(int i =0;i<pixels.length;i++){
+			pixels[i] = screen.pixels[i]; // Give the value of the Screen method to every pixel in the BS
+		}
+		
 		Graphics g = bs.getDrawGraphics();  // Creates a link between Graphics and the BS
-		g.setColor(Color.DARK_GRAY);
+		//g.setColor(Color.DARK_GRAY);
 		g.fillRect(0, 0, getWidth(), getHeight()); // Renders black square at 0,0 from top left
+		
+		g.drawImage(image,0,0,getWidth(),getHeight(),null);	// Actually render the image into the Screen
 		
 		g.dispose(); // Disposes the resources occupied by the graphics
 		bs.show(); // Shows the buffer tha has been calculated
